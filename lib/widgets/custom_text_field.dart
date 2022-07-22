@@ -14,10 +14,9 @@ class CustomTextField extends StatelessWidget {
       obscureText,
       prefixIcon,
       suffixIcon,
-  maxLines,
-  icon,
+      maxLines,
+      icon,
       iconColor,
-      clearText,
       onChanged;
   const CustomTextField({
     Key? key,
@@ -35,13 +34,11 @@ class CustomTextField extends StatelessWidget {
     this.onChanged,
     this.icon,
     this.iconColor,
-    this.clearText,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600),
+    return TextFormField(style: TextStyle(color: Colors.black),
       onChanged: onChanged,
       validator: validator,
       keyboardType: keyboardType,
@@ -50,35 +47,20 @@ class CustomTextField extends StatelessWidget {
       textInputAction: textInputAction,
       obscureText: obscureText ?? false,
       decoration: InputDecoration(
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.black),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.black),
-        ),
-        border: UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.black),
-        ),
         hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.black12,fontSize: 16),
-        suffixIcon: IconButton(     // Icon to
-          icon: Icon(Icons.clear), // clear text
-          onPressed: clearText,
-
-          color: Colors.black38,
+        hintStyle: const TextStyle(color: Colors.black26,fontSize: 16),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            width: 0,
+            style: BorderStyle.none,
+          ),
         ),
-        // border: OutlineInputBorder(
-        //   borderRadius: BorderRadius.circular(30),
-        //   borderSide: const BorderSide(
-        //     width: 0,
-        //     style: BorderStyle.none,
-        //   ),
-        // ),
         filled: true,
         icon: icon,
         iconColor: iconColor,
-        labelText: labelText,labelStyle: TextStyle(color: Colors.black),
-        contentPadding: const EdgeInsets.all(16),fillColor: Colors.white24,
+        labelText: labelText,labelStyle: TextStyle(color: Colors.black26),
+        contentPadding: const EdgeInsets.all(16),fillColor: AppColors.chipsShade,
       ),
     );
   }
