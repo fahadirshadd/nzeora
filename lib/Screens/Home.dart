@@ -10,6 +10,7 @@ import '../models/TabsModel.dart';
 import '../models/blog_data.dart';
 import '../widgets/BlogCard.dart';
 import '../widgets/Chips.dart';
+import '../widgets/DrawerSectionCategoryCard.dart';
 
 
 class Home extends StatefulWidget {
@@ -20,6 +21,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin{
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 TabController? globalTabController;
 late TabController _tabController;
 var indexControl = Get.put(categoriesTabController());
@@ -50,11 +52,23 @@ void initState() {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
+      key: _scaffoldKey,
+      drawer: Drawer(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(50),
+              bottomRight: Radius.circular(50)),
+        ),
+        child: buildCustomDrawer(),
+      ),
       appBar: AppBar(
         foregroundColor: AppColors.black,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Icon(Icons.menu),
+        leading: GestureDetector(
+          onTap: ()=>_scaffoldKey.currentState!.openDrawer(),
+            child: Icon(Icons.menu),
+        ),
         title: Image.asset('assets/images/NzeoraLogoB.png',
             height: MediaQuery.of(context).size.height/4,
             width: MediaQuery.of(context).size.width/3.5
@@ -63,7 +77,7 @@ void initState() {
         actions: [
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Icon(Icons.notifications),
+            child: Icon(Icons.notifications_none),
           )
         ],
       ),
@@ -127,6 +141,35 @@ void initState() {
         ),
       ),
     );
+  }
+
+  SingleChildScrollView buildCustomDrawer() {
+    return SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomText(text: 'Sections',fontSize: 23.0),
+              SizedBox(height: 40,),
+              CustomText(text: 'News',fontSize: 21.0),
+              SizedBox(height: 20,),
+              DrawerSectionCategoryCard( title: 'Recent',),
+              DrawerSectionCategoryCard( title: 'Trending',),
+              SizedBox(height: 40,),
+              CustomText(text: 'Category',fontSize: 21.0),
+              SizedBox(height: 20,),
+              DrawerSectionCategoryCard( title: 'Politics',),
+              DrawerSectionCategoryCard( title: 'Entertainment',),
+              DrawerSectionCategoryCard( title: 'Technology',),
+              DrawerSectionCategoryCard( title: 'Life style',),
+              DrawerSectionCategoryCard( title: 'Food',),
+              //DrawerSectionCategoryCard( title: 'Popular',),
+            ],
+          ),
+        ),
+      );
   }
 
   CustomScrollView buildTabCustomScrollView(BuildContext context) {
@@ -235,6 +278,8 @@ void initState() {
     );
   }
 }
+
+
 
 
 

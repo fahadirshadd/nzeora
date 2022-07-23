@@ -6,7 +6,7 @@ import 'package:nzeora/widgets/custom_text.dart';
 import '../constants/colors.dart';
 import 'Home.dart';
 import 'Profile.dart';
-import 'Store.dart';
+import 'eCommerce/StoreHome.dart';
 
 
 class Dashboard extends StatefulWidget {
@@ -34,7 +34,7 @@ class _DashboardState extends State<Dashboard> {
         ),
       ),
       body: SafeArea(
-        child: _selectedindex==0?Home():_selectedindex==1?Store():Profile(),
+        child: _selectedindex==0?Home():_selectedindex==1?StoreHome():Profile(),
       ),
     );
   }

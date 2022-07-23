@@ -17,7 +17,7 @@ class BlogCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.to(()=>BlogRead(blog));
+        Get.to(()=>BlogRead(blog),transition: Transition.rightToLeft);
       },
       child: Container(
         color: AppColors.chipsShade,

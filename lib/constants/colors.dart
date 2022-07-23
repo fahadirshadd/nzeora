@@ -6,6 +6,7 @@ class AppColors{
   static Color blackShaded = Colors.black12;
   static Color greyShade = Colors.grey.shade400;
   static Color chipsShade = Colors.grey.shade200;
+  static Color chipsShade2 = Colors.grey.shade100;
   static Color grey = Colors.grey;
   static Color mainColor = const Color.fromRGBO(251,64,108,1);
   static Color red = Colors.red;
