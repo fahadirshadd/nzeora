@@ -24,8 +24,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 TabController? globalTabController;
 late TabController _tabController;
-var indexControl = Get.put(categoriesTabController());
+var indexControl =  Get.put(categoriesTabController());
 var indexIs;
+bool animate=false;
 
 
 
@@ -49,7 +50,7 @@ void initState() {
     indexControl.selectedIndex.value=_tabController.index;
 
 
-
+    animate=true;
     return Scaffold(
       backgroundColor: Colors.transparent,
       key: _scaffoldKey,
@@ -179,8 +180,10 @@ void initState() {
                           SliverToBoxAdapter(
                             child: Padding(
                               padding: EdgeInsets.only(top: 20.0),
-                              child: Container(
-                                height: MediaQuery.of(context).size.height/3.5,
+                              child: AnimatedContainer(
+                                duration: Duration(seconds: 2),
+                                curve: Curves.bounceIn,
+                                height: animate?MediaQuery.of(context).size.height/3.5:0,
                                 width: double.maxFinite,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(10),),
@@ -263,20 +266,6 @@ void initState() {
                       );
   }
 
-  CategoriesChipList() {
-    return Wrap(
-      spacing: 6.0,
-      runSpacing: 6.0,
-      children: <Widget>[
-        //BuildChip('Trending)', ),
-        BuildChip('Never Married', Icons.emoji_nature_outlined),
-        BuildChip('Doesn\'t have children', Icons.child_care),
-        BuildChip('Wants children', Icons.child_care),
-        BuildChip('Marriage within a year', Icons.calendar_today_outlined),
-        BuildChip('Move abroad', Icons.airplanemode_active),
-      ],
-    );
-  }
 }
 
 

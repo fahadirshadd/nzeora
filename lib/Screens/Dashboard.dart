@@ -6,6 +6,7 @@ import 'package:nzeora/widgets/custom_text.dart';
 import '../constants/colors.dart';
 import 'Home.dart';
 import 'Profile.dart';
+import 'Videos.dart';
 import 'eCommerce/StoreHome.dart';
 
 
@@ -29,12 +30,14 @@ class _DashboardState extends State<Dashboard> {
           children: <Widget> [
             buildBottomNavBar(context,RxInt(0),_selectedindex!=0?Icons.home_outlined:Icons.home,AppColors.white,AppColors.greyShade,_selectedindex==0?true:false,'Home'),
             buildBottomNavBar(context,RxInt(1),_selectedindex!=1?Icons.shopping_bag_outlined:Icons.shopping_bag,AppColors.white,AppColors.greyShade,_selectedindex==1?true:false,'Store'),
-            buildBottomNavBar(context,RxInt(2),_selectedindex!=2?Icons.account_box_outlined:Icons.account_box,AppColors.white,AppColors.greyShade,_selectedindex==2?true:false,'Profile'),
+            buildBottomNavBar(context,RxInt(2),_selectedindex!=2?Icons.play_circle_outline:Icons.play_circle_filled_sharp,AppColors.white,AppColors.greyShade,_selectedindex==2?true:false,'Videos'),
+            buildBottomNavBar(context,RxInt(3),_selectedindex!=3?Icons.account_box_outlined:Icons.account_box,AppColors.white,AppColors.greyShade,_selectedindex==3?true:false,'Profile'),
+
           ],
         ),
       ),
       body: SafeArea(
-        child: _selectedindex==0?Home():_selectedindex==1?StoreHome():Profile(),
+        child: _selectedindex==0?Home():_selectedindex==1?StoreHome():_selectedindex==2?Videos():Profile(),
       ),
     );
   }
@@ -65,7 +68,7 @@ class _DashboardState extends State<Dashboard> {
         },
         child: Container(
             height: 60,
-            width: MediaQuery.of(context).size.width/3,
+            width: MediaQuery.of(context).size.width/4,
             decoration: BoxDecoration(color: color),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
