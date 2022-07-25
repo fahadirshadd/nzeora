@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nzeora/constants/colors.dart';
 import 'package:nzeora/models/product_data.dart';
+import '../Screens/eCommerce/ProductDetails.dart';
 import '../Screens/eCommerce/ProductsView.dart';
 import 'custom_text.dart';
 
@@ -14,19 +15,22 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=>Get.to(()=>Products(category: product.title!,)),
+      onTap: ()=>Get.to(()=>ProductDetails(product: product,),transition: Transition.rightToLeft),
       child: Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: Container(
           color: AppColors.chipsShade,
           child: Row(
             children: [
-              Container(
-                height: MediaQuery.of(context).size.height/5.5,
-                width: MediaQuery.of(context).size.width/3.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(15),bottomRight: Radius.circular(15)),
-                  image: DecorationImage(image: NetworkImage('${product.image}'),fit: BoxFit.cover),
+              Hero(
+                tag: '${product.image}',
+                child: Container(
+                  height: MediaQuery.of(context).size.height/5.5,
+                  width: MediaQuery.of(context).size.width/3.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(15),bottomRight: Radius.circular(15)),
+                    image: DecorationImage(image: NetworkImage('${product.image}'),fit: BoxFit.cover),
+                  ),
                 ),
               ),
               SizedBox(width: 20,),

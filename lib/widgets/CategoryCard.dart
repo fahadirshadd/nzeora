@@ -14,7 +14,7 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=>Get.to(()=>Products(category: title,)),
+      onTap: ()=>Get.to(()=>Products(category: title,),transition: Transition.rightToLeft),
       child: Container(
         height: MediaQuery.of(context).size.height/height,
         width: MediaQuery.of(context).size.width/width,

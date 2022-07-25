@@ -24,11 +24,11 @@ class CustomButton extends StatelessWidget {
     return Container(
       // margin: const EdgeInsets.only(leright: 30),
       width: MediaQuery.of(context).size.width/1.2,
-      height: MediaQuery.of(context).size.height/17,
+      height: MediaQuery.of(context).size.height/15,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           primary: primary ?? Colors.white,
         ),
         onPressed: onPressed,

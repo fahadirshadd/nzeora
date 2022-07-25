@@ -32,10 +32,10 @@ List<Product> fashionProducts = [
     "Actual Fabric Style & Color May Be Slightly Differ from Product Image.",
   ),Product(
     rating: "5⭐",
-    image: "https://images.pexels.com/photos/842811/pexels-photo-842811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image: "https://images.pexels.com/photos/2709563/pexels-photo-2709563.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     category: "Men",
-    title: "Best Jacket in off white color for winters",
-    price:"100",
+    title: "White 3 piece Suit",
+    price:"150.0",
     description:
     "This Jacket is one of the best jacket for wearing in winter season.",
   ),Product(
