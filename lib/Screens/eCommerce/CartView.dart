@@ -6,6 +6,7 @@ import 'package:nzeora/models/product_data.dart';
 import '../../widgets/CartProductCard.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text.dart';
+import 'CheckOutView.dart';
 
 class CartView extends StatefulWidget {
   Product product;
@@ -50,7 +51,9 @@ class _CartViewState extends State<CartView> {
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: CustomButton(title: 'Checkout', onPressed: (){},asset: '',primary: Colors.black,titleColor: Colors.white,),
+                child: CustomButton(title: 'Checkout', onPressed: (){
+                  Get.to(()=>CheckOut(),transition: Transition.rightToLeft);
+                },asset: '',primary: Colors.black,titleColor: Colors.white,),
               )
             ],
           ),

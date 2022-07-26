@@ -19,6 +19,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  TabIndexController tabIndexController = Get.put(TabIndexController());
   RxInt _selectedindex=0.obs;
 
 
@@ -54,7 +55,8 @@ class _DashboardState extends State<Dashboard> {
       ()=> GestureDetector(
         onTap: (){
           setState((){
-            _selectedindex=index;
+            tabIndexController.selectedTabIndex=index;
+            _selectedindex.value=tabIndexController.selectedTabIndex.value;
             // if(_selectedindex==0){
             //   color=AppColors.white;
             //   colorOnHome=AppColors.white;
@@ -82,4 +84,8 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
+}
+class TabIndexController extends GetxController{
+  RxInt selectedTabIndex=0.obs;
+
 }

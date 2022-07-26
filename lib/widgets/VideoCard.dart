@@ -1,30 +1,119 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 import 'custom_text.dart';
 
-class VideoCard extends StatelessWidget {
-  String videoTitle, thumbnail;
+class VideoCard extends StatefulWidget {
+  String videoTitle, videoUrl;
+
   VideoCard({
-    Key? key, required this.videoTitle, required this.thumbnail
+    Key? key, required this.videoTitle, required this.videoUrl,
   }) : super(key: key);
 
   @override
+  State<VideoCard> createState() => _VideoCardState();
+}
+
+class _VideoCardState extends State<VideoCard> {
+  VideoPlayerController? videoController;
+  @override
+  void initState() {
+    print('video loading....');
+    videoController = VideoPlayerController.network(widget.videoUrl)
+      ..initialize().then((_) {
+        videoController!.pause();
+        videoController!.setLooping(true);
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {});
+      });
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
+    videoController!.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
+    return videoController!.value.isInitialized && videoController!=null ?Column(
       children: [
-        Container(
-          height: MediaQuery.of(context).size.height/3.5,
+        SizedBox(
+          height: MediaQuery.of(context).size.height/3.9,
           width: double.maxFinite,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20),),
-            image: DecorationImage(image: NetworkImage('$thumbnail'),fit: BoxFit.cover),
+          child: Stack(
+            children: [
+              GestureDetector(
+                onTap: (){
+                  setState((){
+                    videoController!.value.isPlaying?videoController!.pause():videoController!.play();
+                  });
+                },
+                child: FittedBox(
+                  alignment: Alignment.center,
+                  fit: BoxFit.cover,
+                  child: SizedBox(
+                    width: videoController!.value.size.width,
+                    height: videoController!.value.size.height,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(130),
+                      child: videoController!=null && videoController!.value.isInitialized?VideoPlayer(videoController!):Container(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              /*videoController!=null && videoController!.value.isInitialized?AspectRatio(aspectRatio: videoController!.value.aspectRatio,child: VideoPlayer(videoController!)):Container(
+                child: CircularProgressIndicator(),
+              ),*/
+              GestureDetector(
+                onTap: (){
+                  setState((){
+                    videoController!.value.isPlaying?videoController!.pause():videoController!.play();
+                  });
+                },
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Icon(videoController!.value.isPlaying?null:Icons.play_arrow_rounded,size: 100,color: Colors.white,),
+                ),
+              ),
+            ],
           ),
-          child: Icon(Icons.play_arrow_rounded,size: 100,color: Colors.white,),
+
         ),
         SizedBox(height: 20,),
-        CustomText(text: 'Watch Video:  $videoTitle',fontSize: 20.0,fontWeight: FontWeight.bold,maxLines: 2,overflow: TextOverflow.ellipsis,),
+        CustomText(text: 'Watch Video:  ${widget.videoTitle}',fontSize: 20.0,fontWeight: FontWeight.bold,maxLines: 2,overflow: TextOverflow.ellipsis,),
         SizedBox(height: 30,),
       ],
+    ):Container(
+      child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: CircularProgressIndicator(),
+          )
+      ),
     );
   }
+
+
+  InkWell ProfileEditingOptions(BuildContext context,text,icon,onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height/10,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CustomText(text: '$text',fontWeight: FontWeight.bold,fontSize: 16.0,),
+            Icon(icon),
+          ],
+        ),
+      ),
+    );
+  }
+
 }
