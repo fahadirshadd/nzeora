@@ -15,7 +15,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=>Get.to(()=>ProductDetails(product: product,),transition: Transition.rightToLeft),
+      onTap: ()=>Get.to(()=>ProductDetails(product: product,callType: ''),transition: Transition.rightToLeft),
       child: Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: Container(

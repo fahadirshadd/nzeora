@@ -17,6 +17,10 @@ class CustomTextField extends StatelessWidget {
       maxLines,
       icon,
       iconColor,
+      borderRadius,
+      outlineWidth,
+      fillColor,
+      readOnly,
       onChanged;
   const CustomTextField({
     Key? key,
@@ -34,6 +38,10 @@ class CustomTextField extends StatelessWidget {
     this.onChanged,
     this.icon,
     this.iconColor,
+    this.borderRadius,
+    this.outlineWidth,
+    this.fillColor,
+    this.readOnly,
   }) : super(key: key);
 
   @override
@@ -41,6 +49,7 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(style: TextStyle(color: Colors.black),
       onChanged: onChanged,
       validator: validator,
+      readOnly: readOnly??false,
       keyboardType: keyboardType,
       controller: controller,maxLines: maxLines,
       maxLength: maxLength,
@@ -50,9 +59,9 @@ class CustomTextField extends StatelessWidget {
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.black26,fontSize: 16),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: const BorderSide(
-            width: 0,
+          borderRadius: BorderRadius.circular(borderRadius??30),
+          borderSide: BorderSide(
+            width: outlineWidth??0,
             style: BorderStyle.none,
           ),
         ),
@@ -60,7 +69,7 @@ class CustomTextField extends StatelessWidget {
         icon: icon,
         iconColor: iconColor,
         labelText: labelText,labelStyle: TextStyle(color: Colors.black26),
-        contentPadding: const EdgeInsets.all(16),fillColor: AppColors.chipsShade,
+        contentPadding: const EdgeInsets.all(16),fillColor: fillColor??AppColors.chipsShade,
       ),
     );
   }

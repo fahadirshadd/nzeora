@@ -26,7 +26,7 @@ class _CommentsState extends State<Comments> {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(30),
             child: Column(
@@ -38,24 +38,24 @@ class _CommentsState extends State<Comments> {
                       onTap: (){
                         Get.back();
                       },
-                        child: Icon(Icons.arrow_back_ios),
+                        child: const Icon(Icons.arrow_back_ios),
                     ),
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
                     Image(image: AssetImage('${widget.blog.image}'),fit: BoxFit.cover,height: MediaQuery.of(context).size.height/8,width: MediaQuery.of(context).size.width/3.2,),
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
                     Expanded(
                       //width: MediaQuery.of(context).size.width/1.8,
                         child: CustomText(text: '${widget.blog.title}',maxLines: 3, fontWeight: FontWeight.w700,),
                     ),
                   ],
                 ),
-                SizedBox(height: 30,),
-                CustomText(text: 'Comments(30)',fontWeight: FontWeight.w700,fontSize: 25.0,),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
+                const CustomText(text: 'Comments(30)',fontWeight: FontWeight.w700,fontSize: 25.0,),
+                const SizedBox(height: 30,),
                  CommentCard(controller: controller),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 CommentCard(controller: controller),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
@@ -76,13 +76,13 @@ class _CommentsState extends State<Comments> {
                       ()=> Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomText(text: 'Nnenna Nweke (You)',fontSize: 17.0,fontWeight: FontWeight.w500,),
-                          SizedBox(height: 10,),
+                          const CustomText(text: 'Nnenna Nweke (You)',fontSize: 17.0,fontWeight: FontWeight.w500,),
+                          const SizedBox(height: 10,),
                           CustomTextField(maxLines: 1,hintText: 'Add a comment',controller: commentController,onChanged: (context){
-                            controller.txtController.value=commentController.text as String;
+                            controller.txtController.value=commentController.text;
                             print(commentController.text);
                           },),
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
                           CustomButton(title: 'Post',asset: '',onPressed: (){},titleColor: controller.txtController.value==''?Colors.black:Colors.white,primary:controller.txtController.value==''?Colors.white:Colors.black ,)
                         ],
                       ),

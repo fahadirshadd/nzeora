@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:video_player/video_player.dart';
-
 import 'custom_text.dart';
 
 class VideoCard extends StatefulWidget {
@@ -91,8 +91,8 @@ class _VideoCardState extends State<VideoCard> {
     ):Container(
       child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: CircularProgressIndicator(),
+            padding: const EdgeInsets.all(10.0),
+            child: getShimmerLoading(),
           )
       ),
     );
@@ -112,6 +112,50 @@ class _VideoCardState extends State<VideoCard> {
             Icon(icon),
           ],
         ),
+      ),
+    );
+  }
+
+
+  Shimmer getShimmerLoading() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+            color: Colors.white,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 18.0,
+                  color: Colors.white,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 14.0,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

@@ -38,7 +38,7 @@ class _DashboardState extends State<Dashboard> {
         ),
       ),
       body: SafeArea(
-        child: _selectedindex==0?Home():_selectedindex==1?StoreHome():_selectedindex==2?Videos():Profile(),
+        child: _selectedindex==0?const Home():_selectedindex==1?const StoreHome():_selectedindex==2?const Videos():const Profile(),
       ),
     );
   }

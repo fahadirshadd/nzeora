@@ -68,14 +68,14 @@ void initState() {
         elevation: 0,
         leading: GestureDetector(
           onTap: ()=>_scaffoldKey.currentState!.openDrawer(),
-            child: Icon(Icons.menu),
+            child: const Icon(Icons.menu),
         ),
         title: Image.asset('assets/images/NzeoraLogoB.png',
             height: MediaQuery.of(context).size.height/4,
             width: MediaQuery.of(context).size.width/3.5
         ),
         centerTitle: true,
-        actions: [
+        actions:const [
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Icon(Icons.notifications_none),
@@ -89,11 +89,11 @@ void initState() {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    CustomTextField(
+                    const CustomTextField(
                       hintText: 'Search',
                       icon: Icon(Icons.search),
                     ),
-                    SizedBox(height: 15,),
+                    const SizedBox(height: 15,),
                     Container(
                       child: TabBar(
                           onTap: (value){
@@ -104,7 +104,7 @@ void initState() {
                             }
                             );
                           },
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                           indicator: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.black),
@@ -119,12 +119,12 @@ void initState() {
                         ),
 
                     ),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     Container(
                       width: double.maxFinite,
                       height: MediaQuery.of(context).size.height/1.52,
                       child: TabBarView(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         controller: _tabController,
                           children: [
                         buildTabCustomScrollView(context),
@@ -146,21 +146,21 @@ void initState() {
 
   SingleChildScrollView buildCustomDrawer() {
     return SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomText(text: 'Sections',fontSize: 23.0),
-              SizedBox(height: 40,),
-              CustomText(text: 'News',fontSize: 21.0),
-              SizedBox(height: 20,),
+              const CustomText(text: 'Sections',fontSize: 23.0),
+              const SizedBox(height: 40,),
+              const CustomText(text: 'News',fontSize: 21.0),
+              const SizedBox(height: 20,),
               DrawerSectionCategoryCard( title: 'Recent',),
               DrawerSectionCategoryCard( title: 'Trending',),
-              SizedBox(height: 40,),
-              CustomText(text: 'Category',fontSize: 21.0),
-              SizedBox(height: 20,),
+              const SizedBox(height: 40,),
+              const CustomText(text: 'Category',fontSize: 21.0),
+              const SizedBox(height: 20,),
               DrawerSectionCategoryCard( title: 'Politics',),
               DrawerSectionCategoryCard( title: 'Entertainment',),
               DrawerSectionCategoryCard( title: 'Technology',),
@@ -175,17 +175,17 @@ void initState() {
 
   CustomScrollView buildTabCustomScrollView(BuildContext context) {
     return CustomScrollView(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         slivers: [
                           SliverToBoxAdapter(
                             child: Padding(
-                              padding: EdgeInsets.only(top: 20.0),
+                              padding: const EdgeInsets.only(top: 20.0),
                               child: AnimatedContainer(
-                                duration: Duration(seconds: 2),
+                                duration: const Duration(seconds: 2),
                                 curve: Curves.bounceIn,
                                 height: animate?MediaQuery.of(context).size.height/3.5:0,
                                 width: double.maxFinite,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(10),),
                                   image: DecorationImage(image: AssetImage('assets/images/corporate.jpg'),fit: BoxFit.cover),
                                 ),
@@ -195,15 +195,15 @@ void initState() {
                                   margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/9.2,),
                                   borderRadius: 10,
                                   blur: 3.5,
-                                  padding: EdgeInsets.only(top: 85),
+                                  padding: const EdgeInsets.only(top: 85),
                                   alignment: Alignment.bottomCenter,
                                   border: 2,
                                   linearGradient: LinearGradient(
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight,
                                       colors: [
-                                        Color(0xFFffffff).withOpacity(0.1),
-                                        Color(0xFFFFFFFF).withOpacity(0.05),
+                                        const Color(0xFFffffff).withOpacity(0.1),
+                                        const Color(0xFFFFFFFF).withOpacity(0.05),
                                       ],
                                       stops: [
                                         0.1,
@@ -213,8 +213,8 @@ void initState() {
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
                                     colors: [
-                                      Color(0xFFffffff).withOpacity(0.5),
-                                      Color((0xFFFFFFFF)).withOpacity(0.5),
+                                      const Color(0xFFffffff).withOpacity(0.5),
+                                      const Color((0xFFFFFFFF)).withOpacity(0.5),
                                     ],
                                   ),
                                   child: Padding(
@@ -233,13 +233,13 @@ void initState() {
                                               height: 40,
                                               child: Center(child: CustomText(text:'Breaking',color: AppColors.white,),),
                                             ),
-                                            SizedBox(width: 20,),
+                                            const SizedBox(width: 20,),
                                             Icon(Icons.access_time_outlined,color: AppColors.white,),
-                                            SizedBox(width: 5,),
+                                            const SizedBox(width: 5,),
                                             CustomText(text:'Just now',color: AppColors.white,),
                                           ],
                                         ),
-                                        SizedBox(height: 10,),
+                                        const SizedBox(height: 10,),
                                         Wrap(
                                           children: [
                                             CustomText(text: 'Technology and business, The future of technology in a business world',maxLines: 2,fontSize: 19.0,fontWeight: FontWeight.bold,color: AppColors.white,overflow: TextOverflow.ellipsis,)

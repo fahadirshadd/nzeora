@@ -8,7 +8,8 @@ import '../../widgets/custom_text.dart';
 
 class ProductDetails extends StatefulWidget {
   Product product;
-   ProductDetails({Key? key,required this.product}) : super(key: key);
+  String callType;
+   ProductDetails({Key? key,required this.product,required this.callType}) : super(key: key);
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
@@ -21,7 +22,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
+      bottomNavigationBar: widget.callType=='MyOrders'?null:Container(
         color: Colors.white,
         height: 60,
         child: Padding(

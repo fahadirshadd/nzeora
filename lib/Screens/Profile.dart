@@ -1,8 +1,12 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nzeora/Screens/Authentication/MyAccount.dart';
+import 'package:nzeora/Screens/eCommerce/MyOrders.dart';
 
 import '../constants/colors.dart';
 import '../widgets/custom_text.dart';
+import 'Bookmarks.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -19,7 +23,7 @@ class _ProfileState extends State<Profile> {
         child: Padding(
           padding: const EdgeInsets.only(left: 32,top: 20,right: 32),
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: constBouncingScrollPhysics(),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -47,33 +51,33 @@ class _ProfileState extends State<Profile> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 40,),
+                  const SizedBox(height: 40,),
                   Container(
                     width: MediaQuery.of(context).size.width/2.5,
                     height: MediaQuery.of(context).size.height/5,
-                    decoration: BoxDecoration(shape:BoxShape.circle,image: DecorationImage(fit: BoxFit.cover,image: NetworkImage('https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')),border:Border.all(color: Colors.white),color:Colors.white54),
+                    decoration: BoxDecoration(shape:BoxShape.circle,image: const DecorationImage(fit: BoxFit.cover,image: NetworkImage('https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')),border:Border.all(color: Colors.white),color:Colors.white54),
                   ),
-                  SizedBox(height: 35,),
+                  const SizedBox(height: 35,),
                   CustomText(
                     text: "Peter Rick",
                     fontWeight: FontWeight.bold,
                     fontSize: 25.0,
                     color: AppColors.black,
                   ),
-                  SizedBox(height: 30),
-                  ProfileEditingOptions(context,'Book marked posts',Icons.bookmark,null),
-                  new Divider(
+                  const SizedBox(height: 30),
+                  ProfileEditingOptions(context,'Book marked posts',Icons.bookmark,(){Get.to(()=>const Bookmarks(),transition: Transition.rightToLeft);}),
+                  const Divider(
                     color: Colors.black12,
                   ),
                   ProfileEditingOptions(context,'Wishlist',Icons.list,null),
-                  new Divider(
+                  const Divider(
                     color: Colors.black12,
                   ),
-                  ProfileEditingOptions(context,'My orders',Icons.shopping_cart,null),
-                  new Divider(
+                  ProfileEditingOptions(context,'My orders',Icons.shopping_cart,(){Get.to(()=>const MyOrders(),transition: Transition.rightToLeft);}),
+                  const Divider(
                     color: Colors.black12,
                   ),
-                  ProfileEditingOptions(context,'My Account',Icons.account_circle,null),
+                  ProfileEditingOptions(context,'My Account',Icons.account_circle,(){Get.to(()=>const MyAccount(),transition: Transition.rightToLeft);}),
                 ]
             ),
           ),

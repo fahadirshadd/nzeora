@@ -31,7 +31,7 @@ class _CartViewState extends State<CartView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomText(text: 'Subtotal(\$)',fontWeight: FontWeight.w600,fontSize: 15.0,overflow: TextOverflow.ellipsis,),
+                  const CustomText(text: 'Subtotal(\$)',fontWeight: FontWeight.w600,fontSize: 15.0,overflow: TextOverflow.ellipsis,),
                   CustomText(text: widget.product.price,fontWeight: FontWeight.w600,fontSize: 15.0,overflow: TextOverflow.ellipsis,),
                 ],
               ),
@@ -60,7 +60,7 @@ class _CartViewState extends State<CartView> {
         ),
       ),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.only(top: 45.0,left: 30,right: 30),
           child: Column(
@@ -73,14 +73,14 @@ class _CartViewState extends State<CartView> {
                     child: Container(
                       height: 35,
                       width: 35,
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                   ),
-                  CustomText(text: 'Cart',fontSize: 25.0,fontWeight: FontWeight.w600,),
-                  SizedBox(width: 20,child: null,),
+                  const CustomText(text: 'Cart',fontSize: 25.0,fontWeight: FontWeight.w600,),
+                  const SizedBox(width: 20,child: null,),
                 ],
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
 
               CartProductCard(product: widget.product,),
 
