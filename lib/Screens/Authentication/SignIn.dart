@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nzeora/Screens/Authentication/SignUp.dart';
 
+import '../../controller/auth_controller.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/custom_text_field.dart';
@@ -14,6 +15,11 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  AuthController authController = Get.find();
+  TextEditingController usernameTextController=TextEditingController();
+  TextEditingController passwordTextController=TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,14 +39,14 @@ class _SignInState extends State<SignIn> {
               ),
               const SizedBox(height: 40,),
               /////////////////
-              const CustomText(text: 'Email address',fontWeight: FontWeight.bold,),
+              const CustomText(text: 'Username',fontWeight: FontWeight.bold,),
               const SizedBox(height: 10,),
-              CustomTextField(hintText: 'Type your email...',borderRadius: 10.0,outlineWidth: 5.0,fillColor: Colors.transparent,),
+              CustomTextField(hintText: 'Type your username...',controller: usernameTextController,borderRadius: 10.0,outlineWidth: 5.0,fillColor: Colors.transparent,),
               //////////////
               const SizedBox(height: 20,),
               const CustomText(text: 'Password',fontWeight: FontWeight.bold,),
               const SizedBox(height: 10,),
-              CustomTextField(obscureText: true,hintText: 'Type your password...',maxLines: 1,borderRadius: 10.0,outlineWidth: 5.0,fillColor: Colors.transparent,),
+              CustomTextField(obscureText: true,hintText: 'Type your password...',controller: passwordTextController,maxLines: 1,borderRadius: 10.0,outlineWidth: 5.0,fillColor: Colors.transparent,),
               //////////////
               const SizedBox(height: 10,),
               Row(
@@ -53,7 +59,9 @@ class _SignInState extends State<SignIn> {
               Padding(
                 padding: const EdgeInsets.only(top: 60.0,left: 20,right: 20),
                 child: CustomButton(title: 'Sign In', onPressed: (){
-                  Get.to(const SignIn(),transition: Transition.rightToLeft);
+
+                  authController.loginWithDetails(usernameTextController.text, passwordTextController.text);
+
                 },asset: '',primary: Colors.black,titleColor: Colors.white,),
               ),
               /////////////////

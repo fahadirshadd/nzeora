@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nzeora/Screens/Dashboard.dart';
+import 'package:nzeora/controller/auth_controller.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
+  AuthController authController=Get.put(AuthController());
   runApp(const MyApp());
 }
 

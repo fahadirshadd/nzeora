@@ -23,7 +23,7 @@ class _ProfileState extends State<Profile> {
         child: Padding(
           padding: const EdgeInsets.only(left: 32,top: 20,right: 32),
           child: SingleChildScrollView(
-            physics: constBouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -31,7 +31,8 @@ class _ProfileState extends State<Profile> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(),
-                      InkWell(child: Container(
+                      InkWell(
+                        child: Container(
                         height: MediaQuery.of(context).size.height/20,
                         width: MediaQuery.of(context).size.width/3.6,
                         decoration: BoxDecoration(color: AppColors.boostColor,borderRadius: BorderRadius.circular(20),),
@@ -47,6 +48,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                         onTap: () async {
+                          Get.to(()=> const MyOrders());
                         },
                       ),
                     ],
