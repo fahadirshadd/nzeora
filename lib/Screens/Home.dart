@@ -6,6 +6,7 @@ import 'package:nzeora/widgets/custom_text.dart';
 import 'package:nzeora/widgets/custom_text_field.dart';
 
 import '../constants/colors.dart';
+import '../controller/blog_controller.dart';
 import '../models/TabsModel.dart';
 import '../models/blog_data.dart';
 import '../widgets/BlogCard.dart';
@@ -25,6 +26,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
 TabController? globalTabController;
 late TabController _tabController;
 var indexControl =  Get.put(categoriesTabController());
+  BlogController blogController = Get.find();
 var indexIs;
 bool animate=false;
 
@@ -44,6 +46,8 @@ void initState() {
     });
     print("Selected Index: " + indexControl.selectedIndex.toString());
   });
+
+  blogController.getBlogsData();
 }
   @override
   Widget build(BuildContext context) {

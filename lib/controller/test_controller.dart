@@ -33,3 +33,4 @@ class TestController extends GetxController with BaseController {
     print(response);
   }
 }
+

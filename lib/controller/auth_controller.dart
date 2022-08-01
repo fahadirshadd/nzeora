@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:nzeora/Screens/Home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/custom_web_services.dart';
@@ -13,6 +14,8 @@ class AuthController extends GetxController {
   var isLoginRoute = false.obs;
   var isDataReadingCompleted = false.obs;
   var isLoggedIn = false.obs;
+
+
   void loginWithDetails(String username, String password) async {
     isDataSubmitting.value = true;
     Map<String, dynamic> dataBody = {
@@ -41,10 +44,14 @@ class AuthController extends GetxController {
       isDataReadingCompleted.value = true;
       isLoggedIn.value = true;
       //Get.offAllNamed(RouteHelper.getInitialRoute());
+      Get.to(()=>Home());
+
       // return responseData;
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('email', username);
+      prefs.setString('token', CustomWebServices.userToken);
       prefs.setBool('isLoggedIn', true);
+      print('Token id: ${prefs.getString('token')}');
     } else {
       isDataSubmitting.value = false;
       Get.snackbar(

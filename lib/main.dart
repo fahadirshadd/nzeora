@@ -4,12 +4,15 @@ import 'package:get/get.dart';
 import 'package:nzeora/Screens/Dashboard.dart';
 import 'package:nzeora/controller/auth_controller.dart';
 
+import 'controller/blog_controller.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
   AuthController authController=Get.put(AuthController());
+  BlogController blogController=Get.put(BlogController());
   runApp(const MyApp());
 }
 

@@ -19,6 +19,14 @@ class _SignInState extends State<SignIn> {
   TextEditingController usernameTextController=TextEditingController();
   TextEditingController passwordTextController=TextEditingController();
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  usernameTextController.text='test';
+  passwordTextController.text='Gold2011@..';
+  }
+
 
   @override
   Widget build(BuildContext context) {
