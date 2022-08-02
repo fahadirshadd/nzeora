@@ -9,7 +9,7 @@ import '../widgets/CommentCard.dart';
 import '../widgets/custom_text_field.dart';
 
 class Comments extends StatefulWidget {
-  Blog blog;
+  BlogsData blog;
    Comments({Key? key,required this.blog}) : super(key: key);
 
   @override
@@ -41,7 +41,7 @@ class _CommentsState extends State<Comments> {
                         child: const Icon(Icons.arrow_back_ios),
                     ),
                     const SizedBox(width: 10,),
-                    Image(image: AssetImage('${widget.blog.image}'),fit: BoxFit.cover,height: MediaQuery.of(context).size.height/8,width: MediaQuery.of(context).size.width/3.2,),
+                    Image(image: AssetImage('${widget.blog.jetpackFeaturedMediaUrl}'),fit: BoxFit.cover,height: MediaQuery.of(context).size.height/8,width: MediaQuery.of(context).size.width/3.2,),
                     const SizedBox(width: 10,),
                     Expanded(
                       //width: MediaQuery.of(context).size.width/1.8,

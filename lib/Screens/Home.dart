@@ -48,6 +48,7 @@ void initState() {
   });
 
   blogController.getBlogsData();
+
 }
   @override
   Widget build(BuildContext context) {
@@ -256,15 +257,17 @@ void initState() {
                               ),
                             ),
                           ),
-                          SliverList(delegate: SliverChildBuilderDelegate(
-                            (context,index){
-                              return Padding(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: BlogCard(blog: blogPosts[index]),
-                              );
-                            },
-                            childCount: blogPosts.length
-                          ),
+                          Obx(
+                              ()=> SliverList(delegate: SliverChildBuilderDelegate(
+                              (context,index){
+                                return Padding(
+                                  padding: const EdgeInsets.only(top: 20),
+                                  child: BlogCard(blog: blogController.blogList[index]),
+                                );
+                              },
+                              childCount: blogController.blogList.length
+                            ),
+                            ),
                           ),
                         ],
                       );

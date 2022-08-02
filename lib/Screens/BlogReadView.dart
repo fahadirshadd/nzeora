@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:nzeora/constants/colors.dart';
 import 'package:nzeora/models/blog_data.dart';
@@ -9,7 +10,7 @@ import '../widgets/ShareDialog.dart';
 import 'CommentsView.dart';
 
 class BlogRead extends StatefulWidget {
-  Blog blog;
+  BlogsData blog;
    BlogRead(this.blog, {Key? key}) : super(key: key);
 
   @override
@@ -137,31 +138,35 @@ class _BlogReadState extends State<BlogRead> {
                 ],
                 ),
                 const SizedBox(height: 25,),
-                CustomText(text: widget.blog.title,maxLines: 3,fontSize: 20.0,fontWeight: FontWeight.bold,),
+                CustomText(text: widget.blog.title!.rendered,maxLines: 3,fontSize: 20.0,fontWeight: FontWeight.bold,),
                 const SizedBox(height: 25,),
             Row(
               children: [
                 CustomText(text: 'By ${widget.blog.author}',fontWeight: FontWeight.w600,),
                 const SizedBox(width: 25,),
-                CustomText(text: '${widget.blog.category}',color: AppColors.grey,),
+                CustomText(text: '${widget.blog.categories}',color: AppColors.grey,),
               ],
             ),
                 CustomText(text: '______',fontWeight: FontWeight.bold,color: AppColors.mainColor,fontSize: 18.0),
 
                 const SizedBox(height: 30,),
             Hero(
-              tag: '${widget.blog.image}',
+              tag: '${widget.blog.jetpackFeaturedMediaUrl}',
               child: Container(
                 height: MediaQuery.of(context).size.height/3.5,
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(10),),
-                  image: DecorationImage(image: AssetImage(widget.blog.image.toString()),fit: BoxFit.cover),
+                  image: DecorationImage(image: NetworkImage(widget.blog.jetpackFeaturedMediaUrl.toString()),fit: BoxFit.cover),
                 ),
               ),
             ),
                 const SizedBox(height: 20,),
-                CustomText(text: '${widget.blog.description}',color: Colors.grey,fontSize: 17.0,),
+                //CustomText(text: '${widget.blog.content!.rendered}',color: Colors.grey,fontSize: 17.0,),
+                Html(
+                  data: widget.blog.content!.rendered,
+                  shrinkWrap: true,
+                ),
               ],
             ),
           ),

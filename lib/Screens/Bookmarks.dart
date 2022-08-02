@@ -4,6 +4,7 @@ import 'package:nzeora/constants/colors.dart';
 import 'package:nzeora/models/blog_data.dart';
 import 'package:nzeora/widgets/BookmarkedBlogCard.dart';
 
+import '../controller/blog_controller.dart';
 import '../widgets/custom_text.dart';
 
 class Bookmarks extends StatefulWidget {
@@ -14,6 +15,13 @@ class Bookmarks extends StatefulWidget {
 }
 
 class _BookmarksState extends State<Bookmarks> {
+  BlogController blogController = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+    blogController.getBlogsData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,13 +49,15 @@ class _BookmarksState extends State<Bookmarks> {
               const SizedBox(height: 20,),
 
               /////////ListView here
-              ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder:(context,index){
-                  return BookmarkedBlogCard(blog: blogPosts[index]);
-                },
-                itemCount: blogPosts.length,
+              Obx(
+                ()=> ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder:(context,index){
+                    return BookmarkedBlogCard(blog: blogController.blogList[index]);
+                  },
+                  itemCount: blogController.blogList.length,
+                ),
               ),
             ],
           ),

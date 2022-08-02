@@ -11,7 +11,7 @@ class CustomWebServices {
   ////////////////////////////////////////////// UserData List (Every user will have a unique Token ID)
   static String userToken = "";
   //////////////////////////////// Blog Post Get.Json link
-  static String getPostsUrl='https://www.nzeora.com/wp-json/wp/v2/posts?page=1&per_page=1';
+  static String getPostsUrl='https://www.nzeora.com/wp-json/wp/v2/posts?page=1&per_page=10';
 
 
 

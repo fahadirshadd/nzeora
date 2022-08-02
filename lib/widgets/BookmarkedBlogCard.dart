@@ -7,7 +7,7 @@ import '../models/blog_data.dart';
 import 'custom_text.dart';
 
 class BookmarkedBlogCard extends StatelessWidget {
-  Blog blog;
+  BlogsData blog;
   BookmarkedBlogCard({
     Key? key, required this.blog
   }) : super(key: key);
@@ -29,20 +29,20 @@ class BookmarkedBlogCard extends StatelessWidget {
               children: [
                 CustomText(text: 'By ${blog.author}',fontWeight: FontWeight.w600,),
                 SizedBox(width: 25,),
-                CustomText(text: '${blog.category}',color: AppColors.grey,),
+                CustomText(text: '${blog.categories}',color: AppColors.grey,),
               ],
             ),
             CustomText(text: '______',fontWeight: FontWeight.bold,color: AppColors.mainColor,fontSize: 18.0),
 
             SizedBox(height: 20,),
             Hero(
-              tag: '${blog.image}',
+              tag: '${blog.jetpackFeaturedMediaUrl}',
               child: Container(
                 height: MediaQuery.of(context).size.height/3.5,
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10),),
-                  image: DecorationImage(image: AssetImage('${blog.image}'),fit: BoxFit.cover),
+                  image: DecorationImage(image: NetworkImage('${blog.jetpackFeaturedMediaUrl}'),fit: BoxFit.cover),
                 ),
               ),
             ),

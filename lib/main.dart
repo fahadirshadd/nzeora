@@ -13,6 +13,7 @@ void main() {
   );
   AuthController authController=Get.put(AuthController());
   BlogController blogController=Get.put(BlogController());
+
   runApp(const MyApp());
 }
 

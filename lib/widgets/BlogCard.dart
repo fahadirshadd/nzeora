@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nzeora/Screens/BlogReadView.dart';
-
+import 'package:timeago/timeago.dart' as timeago;
 import '../constants/colors.dart';
 import '../models/blog_data.dart';
 import 'custom_text.dart';
 
 class BlogCard extends StatelessWidget {
-  final Blog blog;
+  //final Blog blog;
+  final BlogsData blog;
   const BlogCard({
     Key? key,
     required this.blog
@@ -15,8 +16,10 @@ class BlogCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final timeAgo = DateTime.now().subtract(Duration(minutes: blog.date!.minute));
     return GestureDetector(
       onTap: (){
+
         Get.to(()=>BlogRead(blog),transition: Transition.rightToLeft);
       },
       child: Container(
@@ -24,13 +27,13 @@ class BlogCard extends StatelessWidget {
         child: Row(
           children: [
             Hero(
-              tag: '${blog.image}',
+              tag: '${blog.jetpackFeaturedMediaUrl}',
               child: Container(
                 height: MediaQuery.of(context).size.height/6,
                 width: MediaQuery.of(context).size.width/3,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(bottomRight: Radius.circular(50),),
-                  image: DecorationImage(image: AssetImage(blog.image!),fit: BoxFit.cover),
+                  image: DecorationImage(image: NetworkImage(blog.jetpackFeaturedMediaUrl!),fit: BoxFit.cover),
                 ),
               ),
             ),
@@ -42,15 +45,15 @@ class BlogCard extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomText(text: blog.title,maxLines: 2,fontSize: 19.0,fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis,),
+                    CustomText(text: blog.title!.rendered,maxLines: 2,fontSize: 19.0,fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis,),
                     SizedBox(height: 25,),
                     Align(
                       alignment: Alignment.topLeft,
                       child: Wrap(
                         children: [
-                          CustomText(text: blog.date,color: AppColors.grey,),
+                          CustomText(text: '${timeago.format(timeAgo)}',color: AppColors.grey,),
                           CustomText(text: ' | ',color: AppColors.grey,),
-                          CustomText(text: blog.category,color: AppColors.grey,overflow: TextOverflow.ellipsis,maxLines:1),
+                          CustomText(text: blog.categories.toString(),color: AppColors.grey,overflow: TextOverflow.ellipsis,maxLines:1),
                         ],
                       ),
                     ),
