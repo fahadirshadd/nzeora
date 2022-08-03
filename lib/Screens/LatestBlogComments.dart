@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nzeora/constants/colors.dart';
 import 'package:nzeora/models/blog_data.dart';
+import 'package:nzeora/models/lates_blog_post.dart';
 import 'package:nzeora/widgets/custom_button.dart';
 import 'package:nzeora/widgets/custom_text.dart';
 
 import '../widgets/CommentCard.dart';
 import '../widgets/custom_text_field.dart';
+import 'CommentsView.dart';
 
-class Comments extends StatefulWidget {
-  BlogsData blog;
-   Comments({Key? key,required this.blog}) : super(key: key);
+class LatestBlogComments extends StatefulWidget {
+  LatestBlogPost blog;
+  LatestBlogComments({Key? key,required this.blog}) : super(key: key);
 
   @override
-  State<Comments> createState() => _CommentsState();
+  State<LatestBlogComments> createState() => _LatestBlogCommentsState();
 }
 
-class _CommentsState extends State<Comments> {
-  blogCommentsController controller = Get.put(blogCommentsController());
+class _LatestBlogCommentsState extends State<LatestBlogComments> {
+  blogCommentsController controller = Get.find();
   TextEditingController commentController=TextEditingController();
 
 
@@ -38,21 +40,21 @@ class _CommentsState extends State<Comments> {
                       onTap: (){
                         Get.back();
                       },
-                        child: const Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
                     const SizedBox(width: 10,),
                     Image(image: NetworkImage('${widget.blog.jetpackFeaturedMediaUrl}'),fit: BoxFit.cover,height: MediaQuery.of(context).size.height/8,width: MediaQuery.of(context).size.width/3.2,),
                     const SizedBox(width: 10,),
                     Expanded(
                       //width: MediaQuery.of(context).size.width/1.8,
-                        child: CustomText(text: '${widget.blog.title!.rendered}',maxLines: 3, fontWeight: FontWeight.w700,),
+                      child: CustomText(text: '${widget.blog.title!.rendered}',maxLines: 3, fontWeight: FontWeight.w700,),
                     ),
                   ],
                 ),
                 const SizedBox(height: 30,),
                 const CustomText(text: 'Comments(30)',fontWeight: FontWeight.w700,fontSize: 25.0,),
                 const SizedBox(height: 30,),
-                 CommentCard(controller: controller),
+                CommentCard(controller: controller),
                 const SizedBox(height: 30,),
                 CommentCard(controller: controller),
                 const SizedBox(height: 20,),
@@ -73,7 +75,7 @@ class _CommentsState extends State<Comments> {
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: Obx(
-                      ()=> Column(
+                          ()=> Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const CustomText(text: 'Nnenna Nweke (You)',fontSize: 17.0,fontWeight: FontWeight.w500,),
@@ -102,7 +104,4 @@ class _CommentsState extends State<Comments> {
 
 
 
-class blogCommentsController extends GetxController{
-  RxBool commented=false.obs,liked=false.obs;
-  RxString txtController=''.obs;
-}
+

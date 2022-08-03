@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:nzeora/Screens/BlogReadView.dart';
 import 'package:nzeora/widgets/custom_text.dart';
 import 'package:nzeora/widgets/custom_text_field.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import '../constants/colors.dart';
 import '../controller/blog_controller.dart';
@@ -12,6 +14,7 @@ import '../models/blog_data.dart';
 import '../widgets/BlogCard.dart';
 import '../widgets/Chips.dart';
 import '../widgets/DrawerSectionCategoryCard.dart';
+import 'LatestBlogReadView.dart';
 
 
 class Home extends StatefulWidget {
@@ -32,6 +35,7 @@ bool animate=false;
 
 
 
+
 @override
 void initState() {
   // TODO: implement initState
@@ -48,12 +52,13 @@ void initState() {
   });
 
   blogController.getBlogsData();
+  blogController.getLatestBlogsData();
 
 }
+
   @override
   Widget build(BuildContext context) {
     indexControl.selectedIndex.value=_tabController.index;
-
 
     animate=true;
     return Scaffold(
@@ -178,99 +183,108 @@ void initState() {
       );
   }
 
-  CustomScrollView buildTabCustomScrollView(BuildContext context) {
-    return CustomScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        slivers: [
-                          SliverToBoxAdapter(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 20.0),
-                              child: AnimatedContainer(
-                                duration: const Duration(seconds: 2),
-                                curve: Curves.bounceIn,
-                                height: animate?MediaQuery.of(context).size.height/3.5:0,
-                                width: double.maxFinite,
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(10),),
-                                  image: DecorationImage(image: AssetImage('assets/images/corporate.jpg'),fit: BoxFit.cover),
-                                ),
-                                child: GlassmorphicContainer(
-                                  height: MediaQuery.of(context).size.height/5,
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/9.2,),
-                                  borderRadius: 10,
-                                  blur: 3.5,
-                                  padding: const EdgeInsets.only(top: 85),
-                                  alignment: Alignment.bottomCenter,
-                                  border: 2,
-                                  linearGradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: [
-                                        const Color(0xFFffffff).withOpacity(0.1),
-                                        const Color(0xFFFFFFFF).withOpacity(0.05),
-                                      ],
-                                      stops: [
-                                        0.1,
-                                        1,
-                                      ]),
-                                  borderGradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      const Color(0xFFffffff).withOpacity(0.5),
-                                      const Color((0xFFFFFFFF)).withOpacity(0.5),
-                                    ],
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(10),
-                                                color: AppColors.black
+  Widget buildTabCustomScrollView(BuildContext context) {
+    return Obx(
+      ()=> blogController.blogList.isEmpty?Center(child: Image.asset('assets/images/loadingdata.gif',height: 50,)):CustomScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          slivers: [
+                            SliverToBoxAdapter(
+                              child: Obx(
+                                ()=> Padding(
+                                  padding: const EdgeInsets.only(top: 20.0),
+                                  child: InkWell(
+                                    onTap: (){
+                                      Get.to(LatestBlogRead(blogController.latestBlogList[0]));
+                                    },
+                                    child: AnimatedContainer(
+                                      duration: const Duration(seconds: 2),
+                                      curve: Curves.bounceIn,
+                                      height: animate?MediaQuery.of(context).size.height/3.5:0,
+                                      width: double.maxFinite,
+                                      decoration:  BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(10),),
+                                        image: DecorationImage(image: NetworkImage('${blogController.latestBlogList[0].jetpackFeaturedMediaUrl}'),fit: BoxFit.cover),
+                                      ),
+                                      child: GlassmorphicContainer(
+                                        height: MediaQuery.of(context).size.height/5,
+                                        width: MediaQuery.of(context).size.width,
+                                        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/9.2,),
+                                        borderRadius: 10,
+                                        blur: 3.5,
+                                        padding: const EdgeInsets.only(top: 85),
+                                        alignment: Alignment.bottomCenter,
+                                        border: 2,
+                                        linearGradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            colors: [
+                                              const Color(0xFFffffff).withOpacity(0.1),
+                                              const Color(0xFFFFFFFF).withOpacity(0.05),
+                                            ],
+                                            stops: [
+                                              0.1,
+                                              1,
+                                            ]),
+                                        borderGradient: LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: [
+                                            const Color(0xFFffffff).withOpacity(0.5),
+                                            const Color((0xFFFFFFFF)).withOpacity(0.5),
+                                          ],
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      color: AppColors.black
+                                                    ),
+                                                    width: 80,
+                                                    height: 40,
+                                                    child: Center(child: CustomText(text:'Breaking',color: AppColors.white,),),
+                                                  ),
+                                                  const SizedBox(width: 20,),
+                                                  Icon(Icons.access_time_outlined,color: AppColors.white,),
+                                                  const SizedBox(width: 5,),
+                                                  CustomText(text:'${timeago.format(blogController.latestPostTimeAgo.value)}',color: AppColors.white,),
+                                                ],
                                               ),
-                                              width: 80,
-                                              height: 40,
-                                              child: Center(child: CustomText(text:'Breaking',color: AppColors.white,),),
-                                            ),
-                                            const SizedBox(width: 20,),
-                                            Icon(Icons.access_time_outlined,color: AppColors.white,),
-                                            const SizedBox(width: 5,),
-                                            CustomText(text:'Just now',color: AppColors.white,),
-                                          ],
+                                              const SizedBox(height: 10,),
+                                              Wrap(
+                                                children: [
+                                                  CustomText(text: '${blogController.latestBlogList[0].title!.rendered}',maxLines: 2,fontSize: 19.0,fontWeight: FontWeight.bold,color: AppColors.white,overflow: TextOverflow.ellipsis,)
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        const SizedBox(height: 10,),
-                                        Wrap(
-                                          children: [
-                                            CustomText(text: 'Technology and business, The future of technology in a business world',maxLines: 2,fontSize: 19.0,fontWeight: FontWeight.bold,color: AppColors.white,overflow: TextOverflow.ellipsis,)
-                                          ],
-                                        ),
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          Obx(
-                              ()=> SliverList(delegate: SliverChildBuilderDelegate(
-                              (context,index){
-                                return Padding(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: BlogCard(blog: blogController.blogList[index]),
-                                );
-                              },
-                              childCount: blogController.blogList.length
+                            Obx(
+                                ()=> SliverList(delegate: SliverChildBuilderDelegate(
+                                (context,index){
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 20),
+                                    child: BlogCard(blog: blogController.blogList[index]),
+                                  );
+                                },
+                                childCount: blogController.blogList.length
+                              ),
+                              ),
                             ),
-                            ),
-                          ),
-                        ],
-                      );
+                          ],
+                        ),
+    );
   }
 
 }

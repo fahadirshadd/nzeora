@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nzeora/Screens/Dashboard.dart';
 import 'package:nzeora/controller/auth_controller.dart';
 
+import 'Screens/CommentsView.dart';
 import 'controller/blog_controller.dart';
 
 void main() {
@@ -13,6 +14,7 @@ void main() {
   );
   AuthController authController=Get.put(AuthController());
   BlogController blogController=Get.put(BlogController());
+  blogCommentsController controller = Get.put(blogCommentsController());
 
   runApp(const MyApp());
 }
