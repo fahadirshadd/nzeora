@@ -14,6 +14,7 @@ class CustomWebServices {
   static String getPostsUrl='https://www.nzeora.com/wp-json/wp/v2/posts?page=1&per_page=10';
   //////////////////////Latets Blog Post link
   static String getLatestPostUrl = "https://www.nzeora.com/wp-json/wp/v2/posts?categories=556";
+  static String getSearchNewsUrl="https://www.nzeora.com/wp-json/wp/v2/search?search=";
 
 
 

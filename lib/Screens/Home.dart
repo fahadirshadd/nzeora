@@ -14,6 +14,7 @@ import '../models/blog_data.dart';
 import '../widgets/BlogCard.dart';
 import '../widgets/Chips.dart';
 import '../widgets/DrawerSectionCategoryCard.dart';
+import '../widgets/SearchedBlogCard.dart';
 import 'LatestBlogReadView.dart';
 
 
@@ -32,6 +33,8 @@ var indexControl =  Get.put(categoriesTabController());
   BlogController blogController = Get.find();
 var indexIs;
 bool animate=false;
+var searchController = TextEditingController().obs;
+var searchControllerTxt="".obs;
 
 
 
@@ -93,62 +96,82 @@ void initState() {
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(right: 20.0,left: 20),
-          child:
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const CustomTextField(
-                      hintText: 'Search',
-                      icon: Icon(Icons.search),
-                    ),
-                    const SizedBox(height: 15,),
-                    Container(
-                      child: TabBar(
-                          onTap: (value){
-                            setState((){
-                              indexIs=_tabController.index;
-                              indexControl.selectedIndex.value=_tabController.index;
-                              print("Selected Index: " + indexControl.selectedIndex.toString()+' IndexIs: '+indexIs.toString());
-                            }
-                            );
-                          },
-                        physics: const BouncingScrollPhysics(),
-                          indicator: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.black),
-                          indicatorColor: Colors.transparent,
-                          labelColor: Colors.white,
-                          unselectedLabelColor: Colors.black26,
-                          isScrollable: true,
-                          controller: _tabController,
-                            indicatorSize: TabBarIndicatorSize.label,
-                          splashBorderRadius: BorderRadius.circular(10),
-                            tabs: categoryTabs,
+        child: Obx(
+            ()=> Padding(
+            padding: const EdgeInsets.only(right: 20.0,left: 20),
+            child:
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                       CustomTextField(
+                        hintText: 'Search',
+                        icon: const Icon(Icons.search),
+                        controller: searchController.value,
+                         onChanged: (value){
+                          setState((){
+                            searchControllerTxt.value = searchController.value.text;
+                            blogController.getSearchedBlogsData(searchControllerTxt.value);
+                          });
+                         },
+                      ),
+                      const SizedBox(height: 15,),
+                      searchController.value.text !=''? Container(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: blogController.searchedBlogList.length,
+                          itemBuilder: (context,index){
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: SearchedBlogCard(blog: blogController.searchedBlogList[index]),
+                          );
+                        },
                         ),
+                      ):Container(
+                        child: TabBar(
+                            onTap: (value){
+                              setState((){
+                                indexIs=_tabController.index;
+                                indexControl.selectedIndex.value=_tabController.index;
+                                print("Selected Index: " + indexControl.selectedIndex.toString()+' IndexIs: '+indexIs.toString());
+                              }
+                              );
+                            },
+                          physics: const BouncingScrollPhysics(),
+                            indicator: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.black),
+                            indicatorColor: Colors.transparent,
+                            labelColor: Colors.white,
+                            unselectedLabelColor: Colors.black26,
+                            isScrollable: true,
+                            controller: _tabController,
+                              indicatorSize: TabBarIndicatorSize.label,
+                            splashBorderRadius: BorderRadius.circular(10),
+                              tabs: categoryTabs,
+                          ),
 
-                    ),
-                    const SizedBox(height: 10,),
-                    Container(
-                      width: double.maxFinite,
-                      height: MediaQuery.of(context).size.height/1.52,
-                      child: TabBarView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        controller: _tabController,
-                          children: [
-                        buildTabCustomScrollView(context),
-                            buildTabCustomScrollView(context),
-                            buildTabCustomScrollView(context),
-                            buildTabCustomScrollView(context),
-                            buildTabCustomScrollView(context),
-                            buildTabCustomScrollView(context),
-                      ]),
-                    ),
-                  ],
-              ),
+                      ),
+                      const SizedBox(height: 10,),
+                      searchController.value.text !=''? Container():Container(
+                        width: double.maxFinite,
+                        height: MediaQuery.of(context).size.height/1.52,
+                        child: TabBarView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          controller: _tabController,
+                            children: [
+                          buildTabCustomScrollView(context),
+                              buildTabCustomScrollView(context),
+                              buildTabCustomScrollView(context),
+                              buildTabCustomScrollView(context),
+                              buildTabCustomScrollView(context),
+                              buildTabCustomScrollView(context),
+                        ]),
+                      ),
+                    ],
+                ),
 
 
+          ),
         ),
       ),
     );

@@ -9,10 +9,12 @@ import 'package:nzeora/models/lates_blog_post.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/custom_web_services.dart';
+import '../models/searched_blog_post.dart';
 
 class BlogController extends GetxController{
   var blogList=<BlogsData>[].obs;
   var latestBlogList=<LatestBlogPost>[].obs;
+  var searchedBlogList=<SearchBlogPost>[].obs;
   final latestPostTimeAgo = DateTime.now().subtract(Duration(minutes: 0)).obs;
 
   Future<void> getBlogsData() async {
@@ -62,5 +64,23 @@ class BlogController extends GetxController{
 
   }
 
+  Future<void> getSearchedBlogsData(keyWord) async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var response = await http.get(Uri.parse('${CustomWebServices.getSearchNewsUrl}$keyWord'),
+        headers: {"Content-Type": "application/json","Authorization":"Bearer ${prefs.getString('token')}"});
+    print(prefs.getString('token'));
+    if (response.statusCode == 200) {
+
+      var responseData = response.body;
+      searchedBlogList.value =searchBlogPostFromJson(responseData);
+
+    }
+    else{
+      print(response.statusCode);
+    }
+
+  }
 
 }
