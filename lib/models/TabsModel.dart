@@ -24,6 +24,6 @@ List<Tab> categoryTabs= [
     child: TabChip(text:'News',indexIs: 4,),
   ),
   Tab(
-    child: TabChip(text:'Popular',indexIs: 5,),
+    child: TabChip(text:'History',indexIs: 5,),
   ),
 ];

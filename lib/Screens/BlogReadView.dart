@@ -5,6 +5,8 @@ import 'package:nzeora/constants/colors.dart';
 import 'package:nzeora/models/blog_data.dart';
 import 'package:nzeora/widgets/custom_text.dart';
 
+import '../models/blog_data.dart';
+import '../models/blog_data.dart';
 import '../widgets/MoreBlogOptionsDialog.dart';
 import '../widgets/ShareDialog.dart';
 import 'CommentsView.dart';
@@ -142,9 +144,12 @@ class _BlogReadState extends State<BlogRead> {
                 const SizedBox(height: 25,),
             Row(
               children: [
-                CustomText(text: 'By ${widget.blog.author}',fontWeight: FontWeight.w600,),
+                Container(width: MediaQuery.of(context).size.width/1.8,
+                    child: CustomText(text: 'By ${widget.blog.embedded!.author!.elementAt(0).name}',overflow: TextOverflow.fade,fontWeight: FontWeight.w600,)),
                 const SizedBox(width: 25,),
-                CustomText(text: '${widget.blog.categories}',color: AppColors.grey,),
+                Container(
+                    width: MediaQuery.of(context).size.width/4,
+                    child: CustomText(text: '${widget.blog.embedded!.wpTerm!.elementAt(0).first.name}',overflow: TextOverflow.ellipsis,color: AppColors.grey,)),
               ],
             ),
                 CustomText(text: '______',fontWeight: FontWeight.bold,color: AppColors.mainColor,fontSize: 18.0),

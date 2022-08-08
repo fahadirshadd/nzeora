@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controller/videos_controller.dart';
 import '../widgets/VideoCard.dart';
 import '../widgets/custom_text.dart';
 
@@ -12,6 +13,19 @@ class Videos extends StatefulWidget {
 }
 
 class _VideosState extends State<Videos> {
+
+  VideosController videosController = Get.find();
+
+
+  @override
+  void initState() {
+    super.initState();
+
+
+    videosController.getVideosData();
+
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,10 +52,17 @@ class _VideosState extends State<Videos> {
                   const SizedBox(width: 20,child: null,),
                 ],
               ),
-              const SizedBox(height: 20,),
-              VideoCard(videoTitle: 'Anjelina & Jhon become successful in a year',videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-two-coworkers-talking-and-laughing-4872-large.mp4'),
-              VideoCard(videoTitle: 'How to spend quality time with friends',videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-group-of-friends-partying-happily-4640-large.mp4'),
-              VideoCard(videoTitle: 'Beautiful Scenary of mountains & clouds',videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-going-down-a-curved-highway-down-a-mountain-41576-large.mp4'),
+               Obx(()=> SizedBox(height: videosController.videoList.isEmpty?180:20,)),
+              Obx(
+                ()=> videosController.videoList.isEmpty?Center(child: Image.asset('assets/images/loadingdata.gif',height: 50,)):ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: videosController.videoList.length,
+                  itemBuilder: (context,index){
+                    print("Videos loaded: ${videosController.videoList.length}");
+                    return VideoCard(videoTitle: videosController.videoList[index].title!.rendered!,videoUrl: videosController.videoList[index].guid!.rendered!);
+                  },
+                ),
+              ),
             ],
           ),
         ),

@@ -96,6 +96,7 @@ void initState() {
         ],
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Obx(
             ()=> Padding(
             padding: const EdgeInsets.only(right: 20.0,left: 20),
@@ -117,12 +118,13 @@ void initState() {
                       const SizedBox(height: 15,),
                       searchController.value.text !=''? Container(
                         child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: blogController.searchedBlogList.length,
                           itemBuilder: (context,index){
                           return Padding(
                             padding: const EdgeInsets.only(top: 20),
-                            child: SearchedBlogCard(blog: blogController.searchedBlogList[index]),
+                            child: BlogCard(blog: blogController.searchedBlogList[index]),
                           );
                         },
                         ),
@@ -132,6 +134,65 @@ void initState() {
                               setState((){
                                 indexIs=_tabController.index;
                                 indexControl.selectedIndex.value=_tabController.index;
+
+                                blogController.blogList.clear();
+                                switch(indexIs)
+                                {
+                                  case 0:
+                                    {
+                                      setState((){
+                                        blogController.getBlogsData();
+
+                                      });
+                                      break;
+                                    }
+                                  case 1:
+                                    {
+                                      setState((){
+                                        blogController.getSearchedBlogsData(
+                                            'Entertainment');
+                                      });
+
+                                      break;
+                                    }
+                                  case 2:
+                                    {
+                                      setState((){
+                                        blogController.getSearchedBlogsData(
+                                            'Technology');
+                                      });
+
+                                      break;
+                                    }
+                                  case 3:
+                                    {
+                                      setState((){
+                                        blogController.getSearchedBlogsData(
+                                            'Politics');
+                                      });
+
+                                      break;
+                                    }
+                                  case 4:
+                                    {
+                                      setState((){
+                                        blogController.getSearchedBlogsData(
+                                            'News');
+                                      });
+
+                                      break;
+                                    }
+                                  case 5:
+                                    {
+                                      setState((){
+                                        blogController.getSearchedBlogsData(
+                                            'History');
+                                      });
+
+                                      break;
+                                    }
+                                }
+
                                 print("Selected Index: " + indexControl.selectedIndex.toString()+' IndexIs: '+indexIs.toString());
                               }
                               );

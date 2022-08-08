@@ -11,10 +11,11 @@ class CustomWebServices {
   ////////////////////////////////////////////// UserData List (Every user will have a unique Token ID)
   static String userToken = "";
   //////////////////////////////// Blog Post Get.Json link
-  static String getPostsUrl='https://www.nzeora.com/wp-json/wp/v2/posts?page=1&per_page=10';
+  static String getPostsUrl='https://www.nzeora.com/wp-json/wp/v2/posts?_embed&page=1&per_page=10';
   //////////////////////Latets Blog Post link
   static String getLatestPostUrl = "https://www.nzeora.com/wp-json/wp/v2/posts?categories=556";
-  static String getSearchNewsUrl="https://www.nzeora.com/wp-json/wp/v2/search?search=";
+  static String getSearchNewsUrl="https://www.nzeora.com/wp-json/wp/v2/posts?_embed&page=1&per_page=10&search=";
+  static String getVideosUrl="https://www.nzeora.com/wp-json/wp/v2/media?media_type=video&page=1&per_page=100";
 
 
 

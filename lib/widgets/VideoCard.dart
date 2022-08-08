@@ -40,7 +40,7 @@ class _VideoCardState extends State<VideoCard> {
     return videoController!.value.isInitialized && videoController!=null ?Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height/3.9,
+          //height: MediaQuery.of(context).size.height/3.9,
           width: double.maxFinite,
           child: Stack(
             children: [
@@ -57,8 +57,8 @@ class _VideoCardState extends State<VideoCard> {
                     width: videoController!.value.size.width,
                     height: videoController!.value.size.height,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(130),
-                      child: videoController!=null && videoController!.value.isInitialized?VideoPlayer(videoController!):Container(
+                      borderRadius: BorderRadius.circular(80),
+                      child: videoController!=null && videoController!.value.isInitialized?VideoPlayer(videoController!,):Container(
                         child: CircularProgressIndicator(),
                       ),
                     ),
@@ -75,9 +75,11 @@ class _VideoCardState extends State<VideoCard> {
                     videoController!.value.isPlaying?videoController!.pause():videoController!.play();
                   });
                 },
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Icon(videoController!.value.isPlaying?null:Icons.play_arrow_rounded,size: 100,color: Colors.white,),
+                child: Center(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Icon(videoController!.value.isPlaying?null:Icons.play_arrow_rounded,size: 100,color: Colors.white,),
+                  ),
                 ),
               ),
             ],
@@ -85,7 +87,7 @@ class _VideoCardState extends State<VideoCard> {
 
         ),
         SizedBox(height: 20,),
-        CustomText(text: 'Watch Video:  ${widget.videoTitle}',fontSize: 20.0,fontWeight: FontWeight.bold,maxLines: 2,overflow: TextOverflow.ellipsis,),
+        CustomText(text: 'Watch Video:  ${widget.videoTitle}',fontSize: 20.0,fontWeight: FontWeight.bold,maxLines: 3,overflow: TextOverflow.ellipsis,),
         SizedBox(height: 30,),
       ],
     ):Container(

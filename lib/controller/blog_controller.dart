@@ -14,7 +14,7 @@ import '../models/searched_blog_post.dart';
 class BlogController extends GetxController{
   var blogList=<BlogsData>[].obs;
   var latestBlogList=<LatestBlogPost>[].obs;
-  var searchedBlogList=<SearchBlogPost>[].obs;
+  var searchedBlogList=<BlogsData>[].obs;
   final latestPostTimeAgo = DateTime.now().subtract(Duration(minutes: 0)).obs;
 
   Future<void> getBlogsData() async {
@@ -74,8 +74,8 @@ class BlogController extends GetxController{
     if (response.statusCode == 200) {
 
       var responseData = response.body;
-      searchedBlogList.value =searchBlogPostFromJson(responseData);
-
+      blogList.value =blogsDataFromJson(responseData);
+      print('loading data from search: ${blogList[0].title!.rendered}');
     }
     else{
       print(response.statusCode);

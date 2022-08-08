@@ -53,7 +53,7 @@ class BlogCard extends StatelessWidget {
                         children: [
                           CustomText(text: '${timeago.format(timeAgo)}',color: AppColors.grey,),
                           CustomText(text: ' | ',color: AppColors.grey,),
-                          CustomText(text: blog.categories.toString(),color: AppColors.grey,overflow: TextOverflow.ellipsis,maxLines:1),
+                          CustomText(text: blog.embedded!.wpTerm!.elementAt(0).first.name.toString(),color: AppColors.grey,overflow: TextOverflow.ellipsis,maxLines:1),
                         ],
                       ),
                     ),
