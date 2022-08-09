@@ -5,6 +5,7 @@ import 'package:nzeora/models/blog_data.dart';
 import 'package:nzeora/widgets/custom_button.dart';
 import 'package:nzeora/widgets/custom_text.dart';
 
+import '../controller/blog_controller.dart';
 import '../widgets/CommentCard.dart';
 import '../widgets/custom_text_field.dart';
 
@@ -20,6 +21,15 @@ class _CommentsState extends State<Comments> {
   blogCommentsController controller = Get.put(blogCommentsController());
   TextEditingController commentController=TextEditingController();
 
+
+  BlogController blogController = Get.find();
+
+
+  @override
+  void initState() {
+    super.initState();
+    //blogController.getBlogComments(widget.blog.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +60,20 @@ class _CommentsState extends State<Comments> {
                   ],
                 ),
                 const SizedBox(height: 30,),
-                const CustomText(text: 'Comments(30)',fontWeight: FontWeight.w700,fontSize: 25.0,),
+                CustomText(text: 'Comments(${blogController.blogCommentsList.length})',fontWeight: FontWeight.w700,fontSize: 25.0,),
                 const SizedBox(height: 30,),
-                 CommentCard(controller: controller),
-                const SizedBox(height: 30,),
-                CommentCard(controller: controller),
+                ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: blogController.blogCommentsList.length,
+                  itemBuilder: (context,index){
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: CommentCard(controller: controller,blogComments: blogController.blogCommentsList[index]),
+                    );
+                  },
+                ),
+
                 const SizedBox(height: 20,),
                 Container(
                   width: MediaQuery.of(context).size.width,

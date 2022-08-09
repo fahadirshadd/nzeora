@@ -18,7 +18,7 @@ List<Tab> categoryTabs= [
     child: TabChip(text:'Technology',indexIs: 2,),
   ),
   Tab(
-    child: TabChip(text:'Politics',indexIs: 3,),
+    child: TabChip(text:'Fashion',indexIs: 3,),
   ),
   Tab(
     child: TabChip(text:'News',indexIs: 4,),

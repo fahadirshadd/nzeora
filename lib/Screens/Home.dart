@@ -55,7 +55,7 @@ void initState() {
   });
 
   blogController.getBlogsData();
-  blogController.getLatestBlogsData();
+  blogController.getLatestBlogsData('556');
 
 }
 
@@ -106,6 +106,7 @@ void initState() {
                     children: [
                        CustomTextField(
                         hintText: 'Search',
+                        maxLines: 1,
                         icon: const Icon(Icons.search),
                         controller: searchController.value,
                          onChanged: (value){
@@ -120,11 +121,11 @@ void initState() {
                         child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: blogController.searchedBlogList.length,
+                          itemCount: blogController.blogList.length,
                           itemBuilder: (context,index){
                           return Padding(
                             padding: const EdgeInsets.only(top: 20),
-                            child: BlogCard(blog: blogController.searchedBlogList[index]),
+                            child: BlogCard(blog: blogController.blogList[index]),
                           );
                         },
                         ),
@@ -135,22 +136,25 @@ void initState() {
                                 indexIs=_tabController.index;
                                 indexControl.selectedIndex.value=_tabController.index;
 
-                                blogController.blogList.clear();
+
                                 switch(indexIs)
                                 {
                                   case 0:
                                     {
                                       setState((){
+                                        blogController.blogList.clear();
                                         blogController.getBlogsData();
-
+                                        blogController.getLatestBlogsData('556');
                                       });
                                       break;
                                     }
                                   case 1:
                                     {
                                       setState((){
-                                        blogController.getSearchedBlogsData(
-                                            'Entertainment');
+                                        blogController.blogList.clear();
+                                        blogController.getCategorizedBlogsData(
+                                            '570');//Entertainment
+                                        blogController.getLatestBlogsData('570');
                                       });
 
                                       break;
@@ -158,8 +162,10 @@ void initState() {
                                   case 2:
                                     {
                                       setState((){
+                                        blogController.blogList.clear();
                                         blogController.getSearchedBlogsData(
-                                            'Technology');
+                                            'Technology'); //Technology
+                                        blogController.getLatestBlogsData('13179');
                                       });
 
                                       break;
@@ -167,8 +173,10 @@ void initState() {
                                   case 3:
                                     {
                                       setState((){
-                                        blogController.getSearchedBlogsData(
-                                            'Politics');
+                                        blogController.blogList.clear();
+                                        blogController.getCategorizedBlogsData(
+                                            '13285'); //Fashio
+                                        blogController.getLatestBlogsData('13285');
                                       });
 
                                       break;
@@ -176,8 +184,10 @@ void initState() {
                                   case 4:
                                     {
                                       setState((){
-                                        blogController.getSearchedBlogsData(
-                                            'News');
+                                        blogController.blogList.clear();
+                                        blogController.getCategorizedBlogsData(
+                                            '556');//News
+                                        blogController.getLatestBlogsData('556');
                                       });
 
                                       break;
@@ -185,8 +195,10 @@ void initState() {
                                   case 5:
                                     {
                                       setState((){
-                                        blogController.getSearchedBlogsData(
-                                            'History');
+                                        blogController.blogList.clear();
+                                        blogController.getCategorizedBlogsData(
+                                            '9'); //History
+                                        blogController.getLatestBlogsData('9');
                                       });
 
                                       break;

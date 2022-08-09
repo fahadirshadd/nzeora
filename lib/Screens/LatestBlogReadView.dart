@@ -7,6 +7,7 @@ import 'package:nzeora/models/blog_data.dart';
 import 'package:nzeora/models/lates_blog_post.dart';
 import 'package:nzeora/widgets/custom_text.dart';
 
+import '../controller/UserBlogActivityController.dart';
 import '../widgets/MoreBlogOptionsDialog.dart';
 import '../widgets/ShareDialog.dart';
 import 'CommentsView.dart';
@@ -21,7 +22,7 @@ class LatestBlogRead extends StatefulWidget {
 
 class _LatestBlogReadState extends State<LatestBlogRead> {
 
-  UserBlogActivityController checkControl=Get.put(UserBlogActivityController());
+  UserBlogActivityController checkControl=Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +179,3 @@ class _LatestBlogReadState extends State<LatestBlogRead> {
   }
 }
 
-class UserBlogActivityController extends GetxController{
-  RxBool liked=false.obs,comment=false.obs,saved=false.obs;
-
-}

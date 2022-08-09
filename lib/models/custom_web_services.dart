@@ -13,9 +13,13 @@ class CustomWebServices {
   //////////////////////////////// Blog Post Get.Json link
   static String getPostsUrl='https://www.nzeora.com/wp-json/wp/v2/posts?_embed&page=1&per_page=10';
   //////////////////////Latets Blog Post link
-  static String getLatestPostUrl = "https://www.nzeora.com/wp-json/wp/v2/posts?categories=556";
+  static String getLatestPostUrl = "https://www.nzeora.com/wp-json/wp/v2/posts?categories=";
+  ////////////////// Posts related links
+  static String getCategoryPostUrl = "https://www.nzeora.com/wp-json/wp/v2/posts?_embed&categories=";
   static String getSearchNewsUrl="https://www.nzeora.com/wp-json/wp/v2/posts?_embed&page=1&per_page=10&search=";
   static String getVideosUrl="https://www.nzeora.com/wp-json/wp/v2/media?media_type=video&page=1&per_page=100";
+  ///////////////blog comments
+  static String getCommentsUrl="https://www.nzeora.com/wp-json/wp/v2/comments?post=";
 
 
 

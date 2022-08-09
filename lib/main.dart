@@ -6,6 +6,7 @@ import 'package:nzeora/controller/auth_controller.dart';
 import 'package:nzeora/controller/videos_controller.dart';
 
 import 'Screens/CommentsView.dart';
+import 'controller/UserBlogActivityController.dart';
 import 'controller/blog_controller.dart';
 
 void main() {
@@ -17,6 +18,8 @@ void main() {
   BlogController blogController=Get.put(BlogController());
   blogCommentsController controller = Get.put(blogCommentsController());
   VideosController videosController = Get.put(VideosController());
+  UserBlogActivityController checkControl=Get.put(UserBlogActivityController());
+
 
   runApp(const MyApp());
 }

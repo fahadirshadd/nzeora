@@ -5,6 +5,8 @@ import 'package:nzeora/constants/colors.dart';
 import 'package:nzeora/models/blog_data.dart';
 import 'package:nzeora/widgets/custom_text.dart';
 
+import '../controller/UserBlogActivityController.dart';
+import '../controller/blog_controller.dart';
 import '../models/blog_data.dart';
 import '../models/blog_data.dart';
 import '../widgets/MoreBlogOptionsDialog.dart';
@@ -21,7 +23,15 @@ class BlogRead extends StatefulWidget {
 
 class _BlogReadState extends State<BlogRead> {
 
-  UserBlogActivityController checkControl=Get.put(UserBlogActivityController());
+  UserBlogActivityController checkControl=Get.find();
+  BlogController blogController = Get.find();
+
+
+  @override
+  void initState() {
+    super.initState();
+    blogController.getBlogComments(widget.blog.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +78,7 @@ class _BlogReadState extends State<BlogRead> {
                       children: [
                         Icon(checkControl.comment.value?Icons.comment:Icons.comment_outlined,color: checkControl.comment.value?AppColors.black:AppColors.grey,),
                         const SizedBox(width: 3,),
-                        CustomText(text: '12',color: AppColors.grey,),
+                        CustomText(text: '${blogController.blogCommentsList.length}',color: AppColors.grey,),
                       ],
                     ),
                   ),
@@ -179,9 +189,4 @@ class _BlogReadState extends State<BlogRead> {
       ),
     );
   }
-}
-
-class UserBlogActivityController extends GetxController{
-  RxBool liked=false.obs,comment=false.obs,saved=false.obs;
-
 }

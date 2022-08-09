@@ -19,7 +19,6 @@ class BlogCard extends StatelessWidget {
     final timeAgo = DateTime.now().subtract(Duration(minutes: blog.date!.minute));
     return GestureDetector(
       onTap: (){
-
         Get.to(()=>BlogRead(blog),transition: Transition.rightToLeft);
       },
       child: Container(

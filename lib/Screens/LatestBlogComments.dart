@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nzeora/constants/colors.dart';
 import 'package:nzeora/models/blog_data.dart';
-import 'package:nzeora/models/lates_blog_post.dart';
 import 'package:nzeora/widgets/custom_button.dart';
 import 'package:nzeora/widgets/custom_text.dart';
 
+import '../controller/blog_controller.dart';
+import '../models/lates_blog_post.dart';
 import '../widgets/CommentCard.dart';
 import '../widgets/custom_text_field.dart';
 import 'CommentsView.dart';
@@ -19,9 +20,18 @@ class LatestBlogComments extends StatefulWidget {
 }
 
 class _LatestBlogCommentsState extends State<LatestBlogComments> {
-  blogCommentsController controller = Get.find();
+  blogCommentsController controller = Get.put(blogCommentsController());
   TextEditingController commentController=TextEditingController();
 
+
+  BlogController blogController = Get.find();
+
+
+  @override
+  void initState() {
+    super.initState();
+    //blogController.getBlogComments(widget.blog.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +62,20 @@ class _LatestBlogCommentsState extends State<LatestBlogComments> {
                   ],
                 ),
                 const SizedBox(height: 30,),
-                const CustomText(text: 'Comments(30)',fontWeight: FontWeight.w700,fontSize: 25.0,),
+                CustomText(text: 'Comments(${blogController.blogCommentsList.length})',fontWeight: FontWeight.w700,fontSize: 25.0,),
                 const SizedBox(height: 30,),
-                CommentCard(controller: controller),
-                const SizedBox(height: 30,),
-                CommentCard(controller: controller),
+                ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: blogController.blogCommentsList.length,
+                  itemBuilder: (context,index){
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: CommentCard(controller: controller,blogComments: blogController.blogCommentsList[index]),
+                    );
+                  },
+                ),
+
                 const SizedBox(height: 20,),
                 Container(
                   width: MediaQuery.of(context).size.width,
@@ -104,4 +123,7 @@ class _LatestBlogCommentsState extends State<LatestBlogComments> {
 
 
 
-
+/*class blogCommentsController extends GetxController{
+  RxBool commented=false.obs,liked=false.obs;
+  RxString txtController=''.obs;
+}*/

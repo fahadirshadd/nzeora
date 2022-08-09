@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:nzeora/models/blog_comments.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import '../Screens/CommentsView.dart';
 import '../constants/colors.dart';
 import 'custom_text.dart';
@@ -8,13 +9,15 @@ import 'custom_text.dart';
 class CommentCard extends StatelessWidget {
   const CommentCard({
     Key? key,
-    required this.controller,
+    required this.controller, required this.blogComments
   }) : super(key: key);
 
   final blogCommentsController controller;
+  final BlogComments blogComments;
 
   @override
   Widget build(BuildContext context) {
+    final timeAgo = DateTime.now().subtract(Duration(minutes: blogComments.date!.minute));
     return Obx(
         ()=> Column(
         children: [
@@ -26,11 +29,11 @@ class CommentCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomText(text: 'Michelle Bright',fontSize: 16.0,fontWeight: FontWeight.w500,),
+                  CustomText(text: '${blogComments.authorName}',fontSize: 16.0,fontWeight: FontWeight.w500,),
                   SizedBox(height: 10,),
-                  CustomText(text: '3 hr ago',color: AppColors.grey,),
+                  CustomText(text: timeago.format(timeAgo),color: AppColors.grey,),
                   SizedBox(height: 10,),
-                  CustomText(text: 'Good post',fontSize: 16.0,fontWeight: FontWeight.w500,),
+                  CustomText(text: '${blogComments.content!.rendered}',fontSize: 16.0,fontWeight: FontWeight.w500,),
                 ],
               ),
             ),
